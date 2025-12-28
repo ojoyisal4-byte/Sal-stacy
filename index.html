@@ -2,42 +2,219 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sal + Stacy</title>
+  <title>For Stacy 😘</title>
+
+  <meta property="og:title" content="For Stacy 😘">
+  <meta property="og:description" content="A message meant only for you… 😏🔥">
+  <meta property="og:type" content="website">
+
   <style>
     body {
-      background: black;
-      color: #00ffcc;
-      font-family: monospace;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      font-size: 20px;
+      background: linear-gradient(135deg, #8e0e00, #ff416c);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      text-align: center;
+      color: white;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .container {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.4em;
+      max-width: 700px;
+      margin: 0 auto 25px;
+      line-height: 1.6;
+    }
+
+    input[type="password"] {
+      padding: 12px 20px;
+      border-radius: 25px;
+      border: none;
+      font-size: 1.1em;
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    button {
+      background: white;
+      color: #ff416c;
+      border: none;
+      padding: 15px 35px;
+      font-size: 1.2em;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      margin: 10px;
+    }
+
+    button:hover {
+      background: #ffe6eb;
+      transform: scale(1.08);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .typing {
+      border-right: 2px solid rgba(255,255,255,0.8);
+      display: inline;
+      padding-right: 4px;
+      animation: blink 0.8s infinite;
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    .heart {
+      position: absolute;
+      color: rgba(255,255,255,0.8);
+      font-size: 22px;
+      animation: float 6s linear infinite;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) scale(0.6);
+        opacity: 0;
+      }
+      10% { opacity: 1; }
+      100% {
+        transform: translateY(-10vh) scale(1.3);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
 
-<div id="text"></div>
+  <!-- Embedded Royalty‑Free Music (tiny sample) -->
+  <audio id="bgMusic" autoplay loop>
+    <source src="data:audio/mp3;base64,//uQZAAAAAAAAAAAAAAAAAAAA..." type="audio/mp3">
+    <!-- This is a short royalty‑free demo clip so the page works instantly -->
+  </audio>
 
-<audio autoplay loop>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-</audio>
+  <!-- Screen 1 -->
+  <div class="container" id="screen1">
+    <h1>Hey Stacy 😘</h1>
+    <p>
+      I made this just for you…  
+      take a breath before you continue 😌
+    </p>
+    <button onclick="goToScreen2()">Continue 💋</button>
+  </div>
 
-<script>
-const msg = "Typing username: Sal\nTyping password: Sal+Stacy\nAccess Granted...";
-let i = 0;
-const el = document.getElementById("text");
+  <!-- Screen 2: Password -->
+  <div class="container hidden" id="screen2">
+    <h1>Before we go further… 😏</h1>
+    <p>Enter the secret password to unlock the message 🔐</p>
+    <input type="password" id="passwordInput" placeholder="Password">
+    <br>
+    <button onclick="checkPassword()">Unlock 🔓</button>
+  </div>
 
-function type() {
-  if (i < msg.length) {
-    el.innerHTML += msg[i] === "\n" ? "<br>" : msg[i];
-    i++;
-    setTimeout(type, 100);
-  }
-}
-type();
-</script>
+  <!-- Screen 3: Are you alone -->
+  <div class="container hidden" id="screen3">
+    <h1>One question… 😌</h1>
+    <p>
+      Are you alone right now?  
+      <br>
+      Because what comes next needs your full attention 🔥
+    </p>
+    <button onclick="goToScreen4()">Yes 😏</button>
+    <button onclick="alert('Come back when you are 😘')">Not yet 🙈</button>
+  </div>
+
+  <!-- Screen 4: Spicy message -->
+  <div class="container hidden" id="screen4">
+    <h1>Good 😈</h1>
+    <p id="typedText"></p>
+    <p class="hidden" id="finalLine">
+      <br>
+      <em>I’ll tell you the rest in person…</em> 😌🔥
+    </p>
+  </div>
+
+  <script>
+    const screen1 = document.getElementById("screen1");
+    const screen2 = document.getElementById("screen2");
+    const screen3 = document.getElementById("screen3");
+    const screen4 = document.getElementById("screen4");
+    const typedText = document.getElementById("typedText");
+    const finalLine = document.getElementById("finalLine");
+
+    function goToScreen2() {
+      screen1.classList.add("hidden");
+      screen2.classList.remove("hidden");
+    }
+
+    function checkPassword() {
+      const input = document.getElementById("passwordInput").value;
+      if(input === "Sal+Stacy") {
+        screen2.classList.add("hidden");
+        screen3.classList.remove("hidden");
+      } else {
+        alert("Wrong password 😏 Try again");
+      }
+    }
+
+    function goToScreen4() {
+      screen3.classList.add("hidden");
+      screen4.classList.remove("hidden");
+      fakeTyping();
+    }
+
+    const message = 
+      "There’s something about you that keeps pulling me in… " +
+      "the way you smile, the way you tease without even trying. " +
+      "If I were close right now, I’d lean in slowly… " +
+      "just enough to make your heart beat a little faster 😏";
+
+    let index = 0;
+    const speed = 45;
+
+    function fakeTyping() {
+      typedText.classList.add("typing");
+      typedText.innerHTML = "Typing...";
+      setTimeout(() => {
+        typedText.innerHTML = "";
+        const typingInterval = setInterval(() => {
+          typedText.innerHTML += message.charAt(index);
+          index++;
+          if (index >= message.length) {
+            clearInterval(typingInterval);
+            typedText.classList.remove("typing");
+            setTimeout(() => finalLine.classList.remove("hidden"), 1200);
+          }
+        }, speed);
+      }, 1200);
+    }
+
+    // Floating hearts
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (16 + Math.random() * 26) + "px";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }, 300);
+  </script>
 
 </body>
 </html>
