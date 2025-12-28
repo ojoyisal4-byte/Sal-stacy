@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sal + Stacy</title>
+  <style>
+    body {
+      background: black;
+      color: #00ffcc;
+      font-family: monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="text"></div>
+
+<audio autoplay loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const msg = "Typing username: Sal\nTyping password: Sal+Stacy\nAccess Granted...";
+let i = 0;
+const el = document.getElementById("text");
+
+function type() {
+  if (i < msg.length) {
+    el.innerHTML += msg[i] === "\n" ? "<br>" : msg[i];
+    i++;
+    setTimeout(type, 100);
+  }
+}
+type();
+</script>
+
+</body>
+</html>
